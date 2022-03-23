@@ -5,7 +5,7 @@ display: flex;
 background-color:white;
 padding:1.5em;
 gap:1em;
-width:50%;
+width:100%;
 border-radius:10px;
 
 &>:first-child{
@@ -76,10 +76,29 @@ button{
 .right-side{
     display: flex;
     align-items: center;
-    gap:0.25em;
+    gap:0.5em;
+}
+`
+
+export const StyledReply = styled.div`
+display: flex;
+width:100%;
+
+.decoration-container{
+    width:10%;
+    display: flex;
 }
 
+.replies{
+    display: flex;
+    flex-direction: column;
+    gap:1em;
+}
 
-
+.decoration{
+    width:50%;
+    border-right:1px solid var(--clr_lb);
+    opacity:0.1
+}
 
 `

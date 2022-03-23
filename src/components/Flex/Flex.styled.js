@@ -4,7 +4,7 @@ export const StyledFlexContainer = styled.div`
     display: flex;
     flex-direction:column;
     justify-content: center;
-    align-items: center;
     width:100%;
+    align-items: center;
     gap:1em;
 `

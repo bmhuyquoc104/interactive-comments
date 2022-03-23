@@ -1,40 +1,128 @@
 import React from "react";
-import { StyledComment } from "./Comment.styled";
+import { StyledComment, StyledReply } from "./Comment.styled";
 import imagesResource from "../../assets/images";
-
-const Comment = ({ score, content,png,username,createdAt }) => {
+import { StyledFlexContainer } from "../Flex/Flex.styled";
+const Comment = ({ score, content, png, username, createdAt, replies }) => {
   console.log(png);
   return (
-  <StyledComment>
-    <div className="comment-button">
-      <button className="plus">
-        <img src={imagesResource.iconPlus} alt="A plus icon" />
-      </button>
-      <div className="score"><p>{score}</p></div>
-      <button className="minus">
-        <img src={imagesResource.iconMinus} alt="A minus icon" />
-      </button>
-    </div>
+    <>
+      {replies.length <= 0 ? (
+        <StyledComment>
+          <div className="comment-button">
+            <button className="plus">
+              <img src={imagesResource.iconPlus} alt="A plus icon" />
+            </button>
+            <div className="score">
+              <p>{score}</p>
+            </div>
+            <button className="minus">
+              <img src={imagesResource.iconMinus} alt="A minus icon" />
+            </button>
+          </div>
 
-    <div className="comment-body">
-      <div className="comment-user">
-          <div className="left-side">
-          <div className="avatar">
-              <img src={png} alt="An user avatar" />
+          <div className="comment-body">
+            <div className="comment-user">
+              <div className="left-side">
+                <div className="avatar">
+                  <img src={png} alt="An user avatar" />
+                </div>
+                <h2>{username}</h2>
+                <h3>{createdAt}</h3>
               </div>
-          <h2>{username}</h2>
-          <h3>{createdAt}</h3>
+              <div className="right-side">
+                <img src={imagesResource.iconReply} alt="A reply icon" />
+                <button>Reply</button>
+              </div>
+            </div>
+            <div className="content">
+              <p>{content}</p>
+            </div>
           </div>
-          <div className="right-side">
-              <img src={imagesResource.iconReply} alt="A reply icon" />
-              <button>Reply</button>
-          </div>
-      </div>
-      <div className="content">
-          <p>{content}</p>
-      </div>
-    </div>
-  </StyledComment>
+        </StyledComment>
+      ) : (
+        <StyledFlexContainer>
+          <StyledComment>
+            <div className="comment-button">
+              <button className="plus">
+                <img src={imagesResource.iconPlus} alt="A plus icon" />
+              </button>
+              <div className="score">
+                <p>{score}</p>
+              </div>
+              <button className="minus">
+                <img src={imagesResource.iconMinus} alt="A minus icon" />
+              </button>
+            </div>
+
+            <div className="comment-body">
+              <div className="comment-user">
+                <div className="left-side">
+                  <div className="avatar">
+                    <img src={png} alt="An user avatar" />
+                  </div>
+                  <h2>{username}</h2>
+                  <h3>{createdAt}</h3>
+                </div>
+                <div className="right-side">
+                  <img src={imagesResource.iconReply} alt="A reply icon" />
+                  <button>Reply</button>
+                </div>
+              </div>
+              <div className="content">
+                <p>{content}</p>
+              </div>
+            </div>
+          </StyledComment>
+          <StyledReply>
+            <div className="decoration-container">
+              <div className="decoration"></div>
+            </div>
+            <div className="replies">
+              {replies.map((reply) => (
+                <StyledComment key={reply.id}>
+                  <div className="comment-button">
+                    <button className="plus">
+                      <img src={imagesResource.iconPlus} alt="A plus icon" />
+                    </button>
+                    <div className="score">
+                      <p>{reply.score}</p>
+                    </div>
+                    <button className="minus">
+                      <img src={imagesResource.iconMinus} alt="A minus icon" />
+                    </button>
+                  </div>
+
+                  <div className="comment-body">
+                    <div className="comment-user">
+                      <div className="left-side">
+                        <div className="avatar">
+                          <img
+                            src={reply.user.image.png}
+                            alt="An user avatar"
+                          />
+                        </div>
+                        <h2>{reply.user.username}</h2>
+                        <h3>{reply.createdAt}</h3>
+                      </div>
+                      <div className="right-side">
+                        <img
+                          src={imagesResource.iconReply}
+                          alt="A reply icon"
+                        />
+                        <button>Reply</button>
+                      </div>
+                    </div>
+                    <div className="content">
+                      <p>{reply.content}</p>
+                    </div>
+                  </div>
+                </StyledComment>
+              ))}
+            </div>
+          </StyledReply>
+        </StyledFlexContainer>
+      )}
+    </>
   );
 };
 

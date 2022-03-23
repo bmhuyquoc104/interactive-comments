@@ -27,4 +27,8 @@ export const StyledGlobal = createGlobalStyle`
         font-family: 'Rubik', sans-serif;
         background-color: var(--clr_lr);
     }
+
+    #root{
+        width:60%;
+    }
 `
