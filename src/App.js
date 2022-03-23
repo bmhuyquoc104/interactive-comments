@@ -12,7 +12,7 @@ function App() {
       <StyledGlobal />
       <StyledFlexContainer>
             {content.comments.map((comment) => (
-              <Comment  content = {comment.content} score = {comment.score} createdAt = {comment.createdAt} username = {comment.user.username} png = {comment.user.image.png} replies ={comment.replies}/>
+              <Comment  content = {comment.content} score = {comment.score} createdAt = {comment.createdAt} username = {comment.user.username} png = {comment.user.image.png} replies ={comment.replies} currentUser = {content.currentUser}/>
             ))}
       </StyledFlexContainer>
     </>

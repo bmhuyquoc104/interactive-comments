@@ -16,7 +16,7 @@ border-radius:10px;
     flex-direction:column;
     justify-content:space-around;
     align-items: center;
-    height:100px;
+    height:90px;
 }
 &>:first-child p{
     color:var(--clr_mblue);
@@ -39,7 +39,7 @@ border-radius:10px;
 p{
     color:var(--clr_lb);
     font-size:clamp(0.7rem,2vw,1rem);
-    line-height:2;
+    line-height:1.5;
     width:98%;
 }
 
@@ -85,7 +85,7 @@ display: flex;
 width:100%;
 
 .decoration-container{
-    width:10%;
+    width:20%;
     display: flex;
 }
 

@@ -29,6 +29,6 @@ export const StyledGlobal = createGlobalStyle`
     }
 
     #root{
-        width:60%;
+        width:50%;
     }
 `

@@ -1,9 +1,19 @@
 import React from "react";
 import { StyledComment, StyledReply } from "./Comment.styled";
+import CurrentUserComment from "./CurrentUserComment/CurrentUserComment";
 import imagesResource from "../../assets/images";
 import { StyledFlexContainer } from "../Flex/Flex.styled";
-const Comment = ({ score, content, png, username, createdAt, replies }) => {
+const Comment = ({
+  score,
+  content,
+  png,
+  username,
+  createdAt,
+  replies,
+  currentUser,
+}) => {
   console.log(png);
+  console.log(currentUser.image.png);
   return (
     <>
       {replies.length <= 0 ? (
@@ -120,6 +130,7 @@ const Comment = ({ score, content, png, username, createdAt, replies }) => {
               ))}
             </div>
           </StyledReply>
+          <CurrentUserComment png={currentUser.image.png} buttonRole="send" />
         </StyledFlexContainer>
       )}
     </>
