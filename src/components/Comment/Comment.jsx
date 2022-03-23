@@ -2,13 +2,15 @@ import React from "react";
 import { StyledComment } from "./Comment.styled";
 import imagesResource from "../../assets/images";
 
-const Comment = ({ scrore, user:{username,image:{png}}, createAt, content, message }) => {
+const Comment = ({ score, content,png,username,createdAt }) => {
+  console.log(png);
+  return (
   <StyledComment>
     <div className="comment-button">
       <div className="image">
         <img src={imagesResource.iconPlus} alt="A plus icon" />
       </div>
-      <div className="score">{scrore}</div>
+      <div className="score">{score}</div>
       <div className="image">
         <img src={imagesResource.iconMinus} alt="A minus icon" />
       </div>
@@ -21,7 +23,7 @@ const Comment = ({ scrore, user:{username,image:{png}}, createAt, content, messa
               <img src={png} alt="An user avatar" />
               </div>
           <h2>{username}</h2>
-          <h3>{createAt}</h3>
+          <h3>{createdAt}</h3>
           </div>
           <div className="right-side">
               <img src={imagesResource.iconReply} alt="A reply icon" />
@@ -32,7 +34,8 @@ const Comment = ({ scrore, user:{username,image:{png}}, createAt, content, messa
           <p>{content}</p>
       </div>
     </div>
-  </StyledComment>;
+  </StyledComment>
+  );
 };
 
 export default Comment;
