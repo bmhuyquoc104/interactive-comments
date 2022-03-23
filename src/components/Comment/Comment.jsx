@@ -7,13 +7,13 @@ const Comment = ({ score, content,png,username,createdAt }) => {
   return (
   <StyledComment>
     <div className="comment-button">
-      <div className="image">
+      <button className="plus">
         <img src={imagesResource.iconPlus} alt="A plus icon" />
-      </div>
-      <div className="score">{score}</div>
-      <div className="image">
+      </button>
+      <div className="score"><p>{score}</p></div>
+      <button className="minus">
         <img src={imagesResource.iconMinus} alt="A minus icon" />
-      </div>
+      </button>
     </div>
 
     <div className="comment-body">
