@@ -66,6 +66,17 @@ span{
 
 }
 
+svg{
+    fill:#C5C6EF;
+}
+
+.plus:hover, .minus:hover{
+    svg{
+        fill: var(--clr_mblue);
+    }
+}
+
+
 .comment-owner{
     padding:0.2em 0.4em;
     background-color:var(--clr_mblue);
