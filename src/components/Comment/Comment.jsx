@@ -13,7 +13,6 @@ const Comment = ({
   currentUser,
 }) => {
   console.log(png);
-  console.log(currentUser.image.png);
   return (
     <>
       {replies.length <= 0 ? (
@@ -88,46 +87,103 @@ const Comment = ({
               <div className="decoration"></div>
             </div>
             <div className="replies">
-              {replies.map((reply) => (
-                <StyledComment key={reply.id}>
-                  <div className="comment-button">
-                    <button className="plus">
-                      <img src={imagesResource.iconPlus} alt="A plus icon" />
-                    </button>
-                    <div className="score">
-                      <p>{reply.score}</p>
-                    </div>
-                    <button className="minus">
-                      <img src={imagesResource.iconMinus} alt="A minus icon" />
-                    </button>
-                  </div>
-
-                  <div className="comment-body">
-                    <div className="comment-user">
-                      <div className="left-side">
-                        <div className="avatar">
-                          <img
-                            src={reply.user.image.png}
-                            alt="An user avatar"
-                          />
-                        </div>
-                        <h2>{reply.user.username}</h2>
-                        <h3>{reply.createdAt}</h3>
+              {replies.map((reply) =>
+                currentUser.username !== reply.user.username ? (
+                  <StyledComment key={reply.id}>
+                    <div className="comment-button">
+                      <button className="plus">
+                        <img src={imagesResource.iconPlus} alt="A plus icon" />
+                      </button>
+                      <div className="score">
+                        <p>{reply.score}</p>
                       </div>
-                      <div className="right-side">
+                      <button className="minus">
                         <img
-                          src={imagesResource.iconReply}
-                          alt="A reply icon"
+                          src={imagesResource.iconMinus}
+                          alt="A minus icon"
                         />
-                        <button>Reply</button>
+                      </button>
+                    </div>
+
+                    <div className="comment-body">
+                      <div className="comment-user">
+                        <div className="left-side">
+                          <div className="avatar">
+                            <img
+                              src={reply.user.image.png}
+                              alt="An user avatar"
+                            />
+                          </div>
+                          <h2>{reply.user.username}</h2>
+                          <h3>{reply.createdAt}</h3>
+                        </div>
+                        <div className="right-side">
+                          <img
+                            src={imagesResource.iconReply}
+                            alt="A reply icon"
+                          />
+                          <button>Reply</button>
+                        </div>
+                      </div>
+                      <div className="content">
+                        <p>{reply.content}</p>
                       </div>
                     </div>
-                    <div className="content">
-                      <p>{reply.content}</p>
+                  </StyledComment>
+                ) : (
+                  <StyledComment key={reply.id}>
+                    <div className="comment-button">
+                      <button className="plus">
+                        <img src={imagesResource.iconPlus} alt="A plus icon" />
+                      </button>
+                      <div className="score">
+                        <p>{reply.score}</p>
+                      </div>
+                      <button className="minus">
+                        <img
+                          src={imagesResource.iconMinus}
+                          alt="A minus icon"
+                        />
+                      </button>
                     </div>
-                  </div>
-                </StyledComment>
-              ))}
+
+                    <div className="comment-body">
+                      <div className="comment-user">
+                        <div className="left-side">
+                          <div className="avatar">
+                            <img
+                              src={reply.user.image.png}
+                              alt="An user avatar"
+                            />
+                          </div>
+                          <h2>{reply.user.username}</h2>
+                          <h3 className="comment-owner">you</h3>
+                          <h3>{reply.createdAt}</h3>
+                        </div>
+                        <div className="reply-right-side">
+                          <div className="delete-button">
+                            <img
+                              src={imagesResource.iconDelete}
+                              alt="A delete icon"
+                            />
+                            <button>Delete</button>
+                          </div>
+                          <div className="edit-button">
+                            <img
+                              src={imagesResource.iconEdit}
+                              alt="A edit icon"
+                            />
+                            <button>Edit</button>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="content">
+                        <p>{reply.content}</p>
+                      </div>
+                    </div>
+                  </StyledComment>
+                )
+              )}
             </div>
           </StyledReply>
           <CurrentUserComment png={currentUser.image.png} buttonRole="send" />

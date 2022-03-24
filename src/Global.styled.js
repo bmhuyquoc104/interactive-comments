@@ -21,7 +21,7 @@ export const StyledGlobal = createGlobalStyle`
 
     body{
         display: flex;
-        min-height: 100vh;
+        min-height: 150vh;
         justify-content: center;
         align-items: center;
         font-family: 'Rubik', sans-serif;
@@ -29,6 +29,6 @@ export const StyledGlobal = createGlobalStyle`
     }
 
     #root{
-        width:50%;
+        width:max(45%,300px);
     }
 `
