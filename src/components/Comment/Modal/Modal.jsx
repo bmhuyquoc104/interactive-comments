@@ -1,7 +1,8 @@
 import React from "react";
 import {StyledModal} from "./Modal.styled";
 import { StyledAbsoluteContainer } from "../../Flex/Flex.styled";
-const Modal = () => {
+const Modal = ({toggleModal}) => {
+    console.log(toggleModal);
   return (
     <StyledAbsoluteContainer>
       <StyledModal>
@@ -15,8 +16,8 @@ const Modal = () => {
           </p>
         </div>
         <div className="modal-button">
-          <button className="cancel">NO,CANCEL</button>
-          <button className="delete">YES,DELETE</button>
+          <button onClick = {() => toggleModal(false)} className="cancel">NO,CANCEL</button>
+          <button className="delete">YES, DELETE</button>
         </div>
       </StyledModal>
     </StyledAbsoluteContainer>

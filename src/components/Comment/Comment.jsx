@@ -6,6 +6,7 @@ import { StyledFlexContainer } from "../Flex/Flex.styled";
 const Comment = ({
   score,
   content,
+  toggleModal,
   png,
   username,
   createdAt,
@@ -13,6 +14,7 @@ const Comment = ({
   currentUser,
 }) => {
   console.log(png);
+  console.log(toggleModal);
   return (
     <>
       {replies.length <= 0 ? (
@@ -126,7 +128,7 @@ const Comment = ({
                         </div>
                       </div>
                       <div className="content">
-                        <p>{reply.content}</p>
+                        <p><span>@{reply.replyingTo}</span> {reply.content}</p>
                       </div>
                     </div>
                   </StyledComment>
@@ -166,7 +168,7 @@ const Comment = ({
                               src={imagesResource.iconDelete}
                               alt="A delete icon"
                             />
-                            <button>Delete</button>
+                            <button onClick = {() =>toggleModal(true)}>Delete</button>
                           </div>
                           <div className="edit-button">
                             <img
@@ -178,7 +180,7 @@ const Comment = ({
                         </div>
                       </div>
                       <div className="content">
-                        <p>{reply.content}</p>
+                        <p> <span>@{reply.replyingTo}</span> {reply.content}</p>
                       </div>
                     </div>
                   </StyledComment>

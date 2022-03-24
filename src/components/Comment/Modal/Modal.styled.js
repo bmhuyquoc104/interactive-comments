@@ -34,7 +34,7 @@ border-radius:10px;
     padding:1em;
     text-align:center;
     text-transform: uppercase;
-    font-size:clamp(1.2rem,2.5vw,1.2rem);
+    font-size:clamp(1rem,3.5vw,1.2rem);
     color:var(--clr_w);
     border:none;
     border-radius:10px;
@@ -49,7 +49,7 @@ border-radius:10px;
 }
 
 @media (max-width:480px){
-    width:max(90%,370px);
+    width:max(90%,350px);
 
 }
 

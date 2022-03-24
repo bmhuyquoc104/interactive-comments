@@ -8,7 +8,7 @@ gap:1em;
 border-radius:10px;
 
 &>:first-child{
-    width:5%;
+    width:6%;
     background-color:var(--clr_lr);
     display: flex;
     border-radius:10px;
@@ -26,6 +26,13 @@ border-radius:10px;
     flex-direction:column;
     justify-content:space-between;
     gap:0.25em;
+    
+}
+
+
+span{
+    color:var(--clr_mblue);
+    font-weight: 500;
 }
 
 .comment-user{
@@ -37,13 +44,15 @@ border-radius:10px;
 
 .reply-right-side {
     display: flex;
-    gap:2em;
+    gap:1em;
+
 }
 
 .reply-right-side >*{
     display: flex;
     gap:0.5em;
     align-items: center;
+
 }
 
 .reply-right-side img{
@@ -53,13 +62,15 @@ border-radius:10px;
 
 .delete-button button{
     color:var(--clr_red);
+    cursor: pointer;
+
 }
 
 .comment-owner{
-    padding:0.1em 0.3em;
+    padding:0.2em 0.4em;
     background-color:var(--clr_mblue);
-    font-size:clamp(0.7rem,2vw,1rem);
     display: flex;
+    font-size:clamp(0.7rem,2vw,0.8rem) !important;
     align-items: center;
 }
 
@@ -85,6 +96,12 @@ button{
     font-size:clamp(0.7rem,2vw,1rem);
     border:none;
     font-weight:700;
+    cursor: pointer;
+
+}
+
+.reply-right-side>*:hover,.right-side:hover{
+    opacity:0.6;
 }
 
 .left-side{
@@ -96,6 +113,7 @@ button{
 
 .left-side h2{
     color:var(--clr_db);
+    font-weight:500;
     font-size:clamp(0.7rem,2vw,1rem);
 }
 .left-side h3{
@@ -166,7 +184,7 @@ display: flex;
 
 .decoration-container{
     display: flex;
-    width:20%;
+    width:10%;
 }
 
 .replies{

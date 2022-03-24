@@ -52,6 +52,11 @@ export const StyledCurrentUserComment = styled.div`
     border:none;
   }
 
+  button:hover {
+    opacity: 0.6;
+    cursor: pointer;
+  }
+
   @media (max-width: 768px) {
     width: max(100%,300px);
     flex-direction: column;
@@ -75,6 +80,7 @@ export const StyledCurrentUserComment = styled.div`
       right: 1em;
       bottom: 0.5em;
     }
+
     &> :first-child {
       order:2;
     }
