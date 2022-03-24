@@ -7,7 +7,7 @@ const CurrentUserComment = ({ png,buttonRole }) => {
         <img src={png} alt="A user avatar" />
       </div>
       <form>
-        <textarea cols ="4 0" rows = "3" type="textarea" />
+        <textarea cols ="4 0" rows = "3" type="textarea" placeholder="Add a comment..." />
         <button>{buttonRole}</button>
       </form>
     </StyledCurrentUserComment>

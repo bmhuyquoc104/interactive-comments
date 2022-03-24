@@ -82,7 +82,7 @@ const Comment = ({
               </div>
             </div>
           </StyledComment>
-          <StyledReply>
+          <StyledReply >
             <div className="decoration-container">
               <div className="decoration"></div>
             </div>

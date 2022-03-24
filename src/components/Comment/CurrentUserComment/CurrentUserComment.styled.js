@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const StyledCurrentUserComment = styled.div`
   display: flex;
   background-color: white;
-  width: 100%;
+  width: max(100%,300px);
   gap:1em;
   border-radius: 10px;
   padding: 1em;
@@ -24,10 +24,10 @@ export const StyledCurrentUserComment = styled.div`
     align-items: flex-start;
   }
   textarea {
-    flex: 1;
+    flex: 5;
     border-radius: 10px;
-    border: 1px solid var(--clr_lb);
     color: var(--clr_lb);
+    border: 1px solid rgba(211,211,211,0.75);
     font-weight: 100;
     padding: 0.75em 1.5em;
     line-height:1.5;
@@ -36,17 +36,47 @@ export const StyledCurrentUserComment = styled.div`
 
   textarea:focus {
       outline:none;
+      border: 1px solid var(--clr_lb);
+
   }
 
   button {
-    width: 15%;  
+    flex:1;
     border-radius: 10px;
     text-align: center;
     text-transform: uppercase;
     background-color: var(--clr_mblue);
     color:white;
     font-size:clamp(1rem,2.5vw,1rem);
-    padding: 0.8em 1em;
+    padding: 1em 1.5em;
     border:none;
+  }
+
+  @media (max-width: 768px) {
+    width: max(100%,300px);
+    flex-direction: column;
+    flex-wrap:wrap;
+    position: relative;
+    
+
+    form{
+      order:1;
+      width: 100%;
+      flex-direction: column;
+      flex-wrap:wrap;
+    }
+
+    textarea{
+      width: 100%;
+    }
+
+    button{
+      position: absolute;
+      right: 1em;
+      bottom: 0.5em;
+    }
+    &> :first-child {
+      order:2;
+    }
   }
 `;

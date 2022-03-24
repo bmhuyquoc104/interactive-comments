@@ -21,7 +21,7 @@ export const StyledGlobal = createGlobalStyle`
 
     body{
         display: flex;
-        min-height: 150vh;
+        min-height: 100vh;
         justify-content: center;
         align-items: center;
         font-family: 'Rubik', sans-serif;
@@ -29,6 +29,12 @@ export const StyledGlobal = createGlobalStyle`
     }
 
     #root{
-        width:max(45%,300px);
+        width:max(45%,650px);
+    }
+
+    @media (max-width:720px){
+        #root{
+            width:max(90%,300px);
+        }
     }
 `
