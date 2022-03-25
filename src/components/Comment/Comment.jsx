@@ -4,6 +4,7 @@ import CurrentUserComment from "./CurrentUserComment/CurrentUserComment";
 import imagesResource from "../../assets/images";
 import { StyledFlexContainer } from "../Flex/Flex.styled";
 
+
 // Function to render a button and do a upvote and downvote function for that button
 // Using the current score as the props from Comment component
 const RenderButton = ({score}) => {
@@ -115,7 +116,6 @@ const RenderButton = ({score}) => {
 };
 
 
-
 const Comment = ({
   score,
   content,
@@ -130,7 +130,7 @@ const Comment = ({
   const [isUpdating, setUpdating] = useState(false);
   const [isReplyingAReply, setReplyingAReply] = useState(false);
 
-  
+
   
 
   return (
@@ -330,7 +330,7 @@ const Comment = ({
             />
           )}
           {/* the box for current user to add new comment */}
-          <CurrentUserComment png={currentUser.image.png} buttonRole="send" />
+          <CurrentUserComment currentUser = {currentUser} png={currentUser.image.png} buttonRole="send" />
         </StyledFlexContainer>
       )}
     </>
