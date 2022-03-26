@@ -60,3 +60,11 @@ import { formatDistanceToNow, parseISO,format,getSeconds } from 'date-fns'
 ```js
 setComments([...comments,newComments])
 ```
+
+## 4. Delete function 
+- Use `filter` method for this task. Filter the comment or reply that have the different id compare to the chosen id by user 
+```js
+setComment(comments.filter(comment => comment.id !=== id));
+setReply(comments.map((comment) => ({...comment,replies:comment.reply.filter((reply) => reply.id !== replyId),)}));
+``` 
+- Set the type props to check whether the delete function is used for comment or reply

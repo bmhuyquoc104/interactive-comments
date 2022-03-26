@@ -2,7 +2,7 @@ import React, { useState, useReducer, useContext } from "react";
 import { StyledComment, StyledReply } from "./Comment.styled";
 import CurrentUserComment from "./CurrentUserComment/CurrentUserComment";
 import imagesResource from "../../assets/images";
-import { CommentIdContext, ReplyIdContext } from "../../hooks/useContext";
+import { CommentIdContext, ReplyIdContext, TypeContext } from "../../hooks/useContext";
 // Function to render a button and do a upvote and downvote function for that button
 // Using the current score as the props from Comment component
 const RenderButton = ({ score }) => {
@@ -131,6 +131,7 @@ const Comment = ({
   console.log(id);
   const {setCommentID} = useContext(CommentIdContext);
   const {setReplyID} = useContext(ReplyIdContext);
+  const {setType} = useContext(TypeContext);
   return (
     <>
       {/* render only a comment without any replies */}
@@ -160,7 +161,7 @@ const Comment = ({
                       src={imagesResource.iconDelete}
                       alt="A delete icon"
                     />
-                    <button onClick={() => {toggleModal(true);setCommentID(id)}}>
+                    <button onClick={() => {toggleModal(true);setCommentID(id); setType("deleteComment")}}>
                       Delete
                     </button>
                   </div>
@@ -332,7 +333,7 @@ const Comment = ({
                                 src={imagesResource.iconDelete}
                                 alt="A delete icon"
                               />
-                              <button onClick={() => {toggleModal(true);setReplyID(reply.id)}}>
+                              <button onClick={() => {toggleModal(true);setReplyID(reply.id); setType("deleteReply")}}>
                                 Delete
                               </button>
                             </div>

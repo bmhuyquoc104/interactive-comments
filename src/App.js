@@ -4,7 +4,7 @@ import Comment from "./components/Comment/Comment.jsx";
 import { content } from "./assets/content";
 import Modal  from "./components/Comment/Modal/Modal.jsx";
 import {useState,useEffect} from 'react'
-import {CommentContext, CommentIdContext, ReplyIdContext} from './hooks/useContext'
+import {CommentContext, CommentIdContext, ReplyIdContext, TypeContext} from './hooks/useContext'
 import CurrentUserComment from "./components/Comment/CurrentUserComment/CurrentUserComment";
 function App() {
 
@@ -16,7 +16,7 @@ function App() {
     return localData ? JSON.parse(localData) : content.comments;
   });
 
-
+  const [type,setType] = useState();
   const [commentID,setCommentID] = useState();
 
   const [replyID,setReplyID] = useState();
@@ -48,6 +48,7 @@ function App() {
       {/* Add the global style on top  */}
       <StyledGlobal />
       {/* Wrap the children by useContext.provider and pass the value */}
+      <TypeContext.Provider value = {{setType}}>
       <CommentIdContext.Provider value={{setCommentID}}>
         <ReplyIdContext.Provider value={{setReplyID}}>
       <CommentContext.Provider value = {{comments,setComments}}>
@@ -62,10 +63,11 @@ function App() {
       />
       </StyledFlexContainer>
       {/* Show the modal whether it is toggle or not */}
-      {isToggle && <Modal replyId = {replyID} id ={commentID} toggleModal = {setToggle}/>}
+      {isToggle && <Modal type = {type} replyId = {replyID} id ={commentID} toggleModal = {setToggle}/>}
       </CommentContext.Provider>
       </ReplyIdContext.Provider>
       </CommentIdContext.Provider>
+      </TypeContext.Provider>
     </>
   );
 }
