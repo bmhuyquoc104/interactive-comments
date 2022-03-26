@@ -6,7 +6,7 @@ background-color:white;
 padding:1.5em;
 gap:1em;
 border-radius:10px;
-
+width:100%;
 &>:first-child{
     width:6%;
     background-color:var(--clr_lr);
@@ -26,7 +26,6 @@ border-radius:10px;
     flex-direction:column;
     justify-content:space-between;
     gap:0.25em;
-    
 }
 
 
@@ -91,7 +90,6 @@ p{
     color:var(--clr_lb);
     font-size:clamp(0.7rem,2vw,1rem);
     line-height:1.5;
-    width:98%;
 }
 
 

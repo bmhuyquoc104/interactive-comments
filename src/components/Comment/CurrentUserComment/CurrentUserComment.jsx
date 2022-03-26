@@ -4,13 +4,16 @@ import { CommentContext } from "../../../hooks/useContext";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
+import nextId from "react-id-generator";
+import imagesResource from "../../../assets/images";
+import { formatDistanceToNow, parseISO,format,getSeconds } from 'date-fns'
 
 const CurrentUserComment = ({ png, buttonRole, currentUser }) => {
   const { comments, setComments } = useContext(CommentContext);
-  console.log(currentUser);
   const schema = yup.object().shape({
     content: yup.string().required("Please enter your comment"),
   });
+  console.log(comments);
 
   const {
     register,
@@ -27,9 +30,15 @@ const CurrentUserComment = ({ png, buttonRole, currentUser }) => {
 
   const onSubmit = (data) => {
     console.log(data);
-    const newComment = {...currentUser,...data};
-    console.log(newComment);
-
+    let id = nextId("comment-");
+    let score = 0;
+    let replies = [];
+    const today = format(new Date(), "MM-dd-yyyy");
+    let createdAt = today;
+    const newComment = {id,...data,createdAt,score,user:currentUser,replies};
+    
+  
+    setComments([...comments, newComment]);
     reset();
   };
   return (
