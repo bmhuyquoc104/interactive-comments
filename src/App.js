@@ -6,49 +6,46 @@ import Modal  from "./components/Comment/Modal/Modal.jsx";
 import {useState,useEffect} from 'react'
 import {CommentContext} from './hooks/useContext'
 import CurrentUserComment from "./components/Comment/CurrentUserComment/CurrentUserComment";
-import imagesResource from './assets/images'
 function App() {
-  
+
+  // Use state hook to store the comments
   const [comments,setComments] = useState(()=>{
+    // Get the value from localStorage
     const localData = localStorage.getItem('comments');
+    // If the localStorage is empty -> render by the default array
     return localData ? JSON.parse(localData) : content.comments;
   });
+
+  // Use useEffect hook to save the comments to localStorage and only re render when the comments arr change
+  useEffect(() => {
+    // Set the item to the localStorage
+    localStorage.setItem('comments',JSON.stringify(comments))
+  },[comments])
+
+  // Use to remove the localstorage
+  // localStorage.removeItem('comments');
+
+  // Initialize the empty arr to push all the replies to this arr
   let replyComment = [];
   comments.forEach(comment => {
     let eachReply = comment.replies;
     replyComment.push(eachReply);
     
   })
-  useEffect(() => {
-    localStorage.setItem('comments',JSON.stringify(comments))
-  },[comments])
 
-  localStorage.removeItem('comments');
-
-  const [reply,setReply] = useState(replyComment[1]);
-  console.log(comments);
-  const newComment = {
-    id: 1,
-    content: "Impressive! Though it seems the drag feature could be improved. But overall it looks incredible. You've nailed the design and the responsiveness at various breakpoints works really well.",
-    createdAt: "1 month ago",
-    score: 12,
-    user: {
-      image: { 
-        png: `${imagesResource.imageAmy}`,
-      },
-      username: "amyrobson"
-    },
-    replies: []
-  }
+  const [reply,setReply] = useState((replyComment[1]));
 
 
+  // use state hook to toggle the modal
   const [isToggle, setToggle] = useState(false);
   content.comments.map(comment => {
     console.log(comment.user.image.png);
   })
   return (
     <>
+      {/* Add the global style on top  */}
       <StyledGlobal />
+      {/* Wrap the children by useContext.provider and pass the value */}
       <CommentContext.Provider value = {{comments,setComments}}>
       <StyledFlexContainer>
             {comments.map((comment) => (
@@ -60,6 +57,7 @@ function App() {
         buttonRole="send"
       />
       </StyledFlexContainer>
+      {/* Show the modal whether it is toggle or not */}
       {isToggle && <Modal toggleModal = {setToggle}/>}
       </CommentContext.Provider>
     </>

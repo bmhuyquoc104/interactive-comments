@@ -1,70 +1,62 @@
-# Getting Started with Create React App
+# Project Problem
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 1. Save data to local Storage
+- Use the state hook to get all the data (if exist) in the local storage else initialize as a default array
+  
+```js
+const [comments,setComments] = useState(() => {
+    const localData = localStorage.getItem('comments');
+    return localData ? JSON.parse(localData) : content.comments;
+})
+```
+- Use the `useEffect` hook to initially set the item to localStorage and only re run if the item arr `changed`
 
-## Available Scripts
+```js
+useEffect(() => {
+    localStorage.setItem('comments',JSON.stringify(comments))
+},[comments])
+```
 
-In the project directory, you can run:
+## 2. Upvote and Downvote function
+- Use the `useReducer` hook
+- Initiale the state for plus and minus status to determine whenever it is active or not 
+- In the switch case in `reducer function`, can render the state by `tenary function`
 
-### `npm start`
+ ```js
+    case "UPVOTEPLUS":
+        return {
+          currentVote: state.currentVote + 1,
+          isPlusActive: state.isMinusActive ? false : true,
+          isMinusActive: false,
+        };
+ ```    
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+ ## 3. Add function
+ - Use the `react-hook-form` to collect the input data from user
+- Use `react-id-generator` for generate new id
+- Use `date-fns` for dealing with date problem 
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- To install :
+```js
+npm i react-hook-form
+npm i yup
+npm i @hookform/resolvers
+npm i react-id-generator
+npm i date-fns
+```
 
-### `npm test`
+- To import :
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```js
+import * as yup from'yup'
+import {useForm} from 'react-hook-form'
+import {yupResolver} from '@hook/resolvers/yup'
+import nextId from "react-id-generator";
+import { formatDistanceToNow, parseISO,format,getSeconds } from 'date-fns'
+``` 
 
-### `npm run build`
+- to add new data to the comments arr, use `spread operator`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```js
+setComments([...comments,newComments])
+```
