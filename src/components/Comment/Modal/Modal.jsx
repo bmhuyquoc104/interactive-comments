@@ -1,8 +1,15 @@
-import React from "react";
+import React, {useContext} from "react";
 import {StyledModal} from "./Modal.styled";
 import { StyledAbsoluteContainer } from "../../Flex/Flex.styled";
-const Modal = ({toggleModal}) => {
-    console.log(toggleModal);
+import { CommentContext } from "../../../hooks/useContext";
+
+const Modal = ({toggleModal,id}) => {
+    console.log(id)
+    const { comments, setComments } = useContext(CommentContext);
+    const deleteFunction = () => {
+        setComments(comments.filter(comment => comment.id !== id));
+        toggleModal(false);
+    }
   return (
     <StyledAbsoluteContainer>
       <StyledModal>
@@ -17,7 +24,7 @@ const Modal = ({toggleModal}) => {
         </div>
         <div className="modal-button">
           <button onClick = {() => toggleModal(false)} className="cancel">NO,CANCEL</button>
-          <button className="delete">YES, DELETE</button>
+          <button onClick = { deleteFunction} className="delete">YES, DELETE</button>
         </div>
       </StyledModal>
     </StyledAbsoluteContainer>

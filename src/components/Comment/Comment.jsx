@@ -1,10 +1,8 @@
-import React, { useState, useReducer } from "react";
+import React, { useState, useReducer, useContext } from "react";
 import { StyledComment, StyledReply } from "./Comment.styled";
 import CurrentUserComment from "./CurrentUserComment/CurrentUserComment";
 import imagesResource from "../../assets/images";
-import { StyledFlexContainer } from "../Flex/Flex.styled";
-import nextId from "react-id-generator";
-
+import { CommentIdContext } from "../../hooks/useContext";
 // Function to render a button and do a upvote and downvote function for that button
 // Using the current score as the props from Comment component
 const RenderButton = ({ score }) => {
@@ -123,18 +121,69 @@ const Comment = ({
   createdAt,
   replies,
   currentUser,
+  id,
 }) => {
   const [isReplyingComment, setReplyingComment] = useState(false);
   const [isUpdating, setUpdating] = useState(false);
   const [isReplyingAReply, setReplyingAReply] = useState(false);
 
+
+  console.log(id);
+  const {setCommentID} = useContext(CommentIdContext);
   return (
     <>
       {/* render only a comment without any replies */}
       {replies.length <= 0 ? (
         <>
           {/* render all the comments */}
-          <StyledComment>
+          {currentUser.username === username ? (
+            <StyledComment >
+            <RenderButton score={score} />
+
+            <div className="comment-body">
+              <div className="comment-user">
+                <div className="left-side">
+                  <div className="avatar">
+                    <img
+                      src={png}
+                      alt="An user avatar"
+                    />
+                  </div>
+                  <h2>{username}</h2>
+                  <h3 className="comment-owner">you</h3>
+                  <h3>{createdAt}</h3>
+                </div>
+                <div className="reply-right-side">
+                  <div className="delete-button">
+                    <img
+                      src={imagesResource.iconDelete}
+                      alt="A delete icon"
+                    />
+                    <button onClick={() => {toggleModal(true);setCommentID(id)}}>
+                      Delete
+                    </button>
+                  </div>
+                  <div className="edit-button">
+                    <img
+                      src={imagesResource.iconEdit}
+                      alt="A edit icon"
+                    />
+                    {/* a button to open the update box */}
+                    <button onClick={() => setUpdating(!isUpdating)}>
+                      Edit
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div className="content">
+                <p>
+                  {" "}
+                 {content}
+                </p>
+              </div>
+            </div>
+          </StyledComment>
+          ) : ( <StyledComment>
             <RenderButton score={score} />
             <div className="comment-body">
               <div className="comment-user">
@@ -148,7 +197,7 @@ const Comment = ({
                 <div className="right-side">
                   <img src={imagesResource.iconReply} alt="A reply icon" />
                   {/* open the reply box when click */}
-                  <button
+                  <button id = {id}
                     onClick={() => setReplyingComment(!isReplyingComment)}
                   >
                     Reply
@@ -160,6 +209,8 @@ const Comment = ({
               </div>
             </div>
           </StyledComment>
+          )}
+         
           {/* only open the reply box when reply is clicked */}
           {isReplyingComment && (
             <CurrentUserComment

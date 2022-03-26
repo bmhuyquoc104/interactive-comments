@@ -4,7 +4,7 @@ import Comment from "./components/Comment/Comment.jsx";
 import { content } from "./assets/content";
 import Modal  from "./components/Comment/Modal/Modal.jsx";
 import {useState,useEffect} from 'react'
-import {CommentContext} from './hooks/useContext'
+import {CommentContext, CommentIdContext} from './hooks/useContext'
 import CurrentUserComment from "./components/Comment/CurrentUserComment/CurrentUserComment";
 function App() {
 
@@ -15,6 +15,9 @@ function App() {
     // If the localStorage is empty -> render by the default array
     return localData ? JSON.parse(localData) : content.comments;
   });
+
+
+  const [commentID,setCommentID] = useState();
 
   // Use useEffect hook to save the comments to localStorage and only re render when the comments arr change
   useEffect(() => {
@@ -38,18 +41,16 @@ function App() {
 
   // use state hook to toggle the modal
   const [isToggle, setToggle] = useState(false);
-  content.comments.map(comment => {
-    console.log(comment.user.image.png);
-  })
   return (
     <>
       {/* Add the global style on top  */}
       <StyledGlobal />
       {/* Wrap the children by useContext.provider and pass the value */}
+      <CommentIdContext.Provider value={{setCommentID}}>
       <CommentContext.Provider value = {{comments,setComments}}>
       <StyledFlexContainer>
             {comments.map((comment) => (
-              <Comment toggleModal = {setToggle}  content = {comment.content} score = {comment.score} createdAt = {comment.createdAt} username = {comment.user.username} png = {comment.user.image.png} replies ={comment.replies} currentUser = {content.currentUser} />
+              <Comment key = {comment.id} id = {comment.id} toggleModal = {setToggle}  content = {comment.content} score = {comment.score} createdAt = {comment.createdAt} username = {comment.user.username} png = {comment.user.image.png} replies ={comment.replies} currentUser = {content.currentUser} />
             ))}
             <CurrentUserComment
         currentUser={content.currentUser}
@@ -58,8 +59,9 @@ function App() {
       />
       </StyledFlexContainer>
       {/* Show the modal whether it is toggle or not */}
-      {isToggle && <Modal toggleModal = {setToggle}/>}
+      {isToggle && <Modal id ={commentID} toggleModal = {setToggle}/>}
       </CommentContext.Provider>
+      </CommentIdContext.Provider>
     </>
   );
 }

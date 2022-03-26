@@ -5,8 +5,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import nextId from "react-id-generator";
-import imagesResource from "../../../assets/images";
-import { formatDistanceToNow, parseISO,format,getSeconds } from 'date-fns'
+import { format } from 'date-fns'
 
 const CurrentUserComment = ({ png, buttonRole, currentUser }) => {
   const { comments, setComments } = useContext(CommentContext);
