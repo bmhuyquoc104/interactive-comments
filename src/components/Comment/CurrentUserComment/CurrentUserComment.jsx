@@ -36,8 +36,6 @@ const CurrentUserComment = ({ png, buttonRole, currentUser }) => {
     const today = format(new Date(), "MM-dd-yyyy");
     let createdAt = today;
     const newComment = {id,...data,createdAt,score,user:currentUser,replies};
-    
-  
     setComments([...comments, newComment]);
     reset();
   };

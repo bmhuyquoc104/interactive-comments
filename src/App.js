@@ -3,19 +3,28 @@ import { StyledFlexContainer } from "./components/Flex/Flex.styled";
 import Comment from "./components/Comment/Comment.jsx";
 import { content } from "./assets/content";
 import Modal  from "./components/Comment/Modal/Modal.jsx";
-import {useState} from 'react'
+import {useState,useEffect} from 'react'
 import {CommentContext} from './hooks/useContext'
 import CurrentUserComment from "./components/Comment/CurrentUserComment/CurrentUserComment";
 import imagesResource from './assets/images'
 function App() {
   
-  const [comments,setComments] = useState(content.comments);
+  const [comments,setComments] = useState(()=>{
+    const localData = localStorage.getItem('comments');
+    return localData ? JSON.parse(localData) : content.comments;
+  });
   let replyComment = [];
   comments.forEach(comment => {
     let eachReply = comment.replies;
     replyComment.push(eachReply);
     
   })
+  useEffect(() => {
+    localStorage.setItem('comments',JSON.stringify(comments))
+  },[comments])
+
+  localStorage.removeItem('comments');
+
   const [reply,setReply] = useState(replyComment[1]);
   console.log(comments);
   const newComment = {
