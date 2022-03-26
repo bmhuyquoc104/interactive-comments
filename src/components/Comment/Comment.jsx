@@ -2,7 +2,7 @@ import React, { useState, useReducer, useContext } from "react";
 import { StyledComment, StyledReply } from "./Comment.styled";
 import CurrentUserComment from "./CurrentUserComment/CurrentUserComment";
 import imagesResource from "../../assets/images";
-import { CommentIdContext } from "../../hooks/useContext";
+import { CommentIdContext, ReplyIdContext } from "../../hooks/useContext";
 // Function to render a button and do a upvote and downvote function for that button
 // Using the current score as the props from Comment component
 const RenderButton = ({ score }) => {
@@ -130,6 +130,7 @@ const Comment = ({
 
   console.log(id);
   const {setCommentID} = useContext(CommentIdContext);
+  const {setReplyID} = useContext(ReplyIdContext);
   return (
     <>
       {/* render only a comment without any replies */}
@@ -197,7 +198,7 @@ const Comment = ({
                 <div className="right-side">
                   <img src={imagesResource.iconReply} alt="A reply icon" />
                   {/* open the reply box when click */}
-                  <button id = {id}
+                  <button 
                     onClick={() => setReplyingComment(!isReplyingComment)}
                   >
                     Reply
@@ -283,9 +284,9 @@ const Comment = ({
                             />
                             {/* open a reply box for each reply in a comment */}
                             <button
-                              onClick={() =>
-                                setReplyingAReply(!isReplyingAReply)
-                              }
+                              onClick={() =>{
+                                setReplyingAReply(!isReplyingAReply);
+                              }}
                             >
                               Reply
                             </button>
@@ -331,7 +332,7 @@ const Comment = ({
                                 src={imagesResource.iconDelete}
                                 alt="A delete icon"
                               />
-                              <button onClick={() => toggleModal(true)}>
+                              <button onClick={() => {toggleModal(true);setReplyID(reply.id)}}>
                                 Delete
                               </button>
                             </div>

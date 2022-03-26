@@ -4,7 +4,7 @@ import Comment from "./components/Comment/Comment.jsx";
 import { content } from "./assets/content";
 import Modal  from "./components/Comment/Modal/Modal.jsx";
 import {useState,useEffect} from 'react'
-import {CommentContext, CommentIdContext} from './hooks/useContext'
+import {CommentContext, CommentIdContext, ReplyIdContext} from './hooks/useContext'
 import CurrentUserComment from "./components/Comment/CurrentUserComment/CurrentUserComment";
 function App() {
 
@@ -19,6 +19,8 @@ function App() {
 
   const [commentID,setCommentID] = useState();
 
+  const [replyID,setReplyID] = useState();
+
   // Use useEffect hook to save the comments to localStorage and only re render when the comments arr change
   useEffect(() => {
     // Set the item to the localStorage
@@ -26,7 +28,7 @@ function App() {
   },[comments])
 
   // Use to remove the localstorage
-  // localStorage.removeItem('comments');
+  localStorage.removeItem('comments');
 
   // Initialize the empty arr to push all the replies to this arr
   let replyComment = [];
@@ -47,6 +49,7 @@ function App() {
       <StyledGlobal />
       {/* Wrap the children by useContext.provider and pass the value */}
       <CommentIdContext.Provider value={{setCommentID}}>
+        <ReplyIdContext.Provider value={{setReplyID}}>
       <CommentContext.Provider value = {{comments,setComments}}>
       <StyledFlexContainer>
             {comments.map((comment) => (
@@ -59,8 +62,9 @@ function App() {
       />
       </StyledFlexContainer>
       {/* Show the modal whether it is toggle or not */}
-      {isToggle && <Modal id ={commentID} toggleModal = {setToggle}/>}
+      {isToggle && <Modal replyId = {replyID} id ={commentID} toggleModal = {setToggle}/>}
       </CommentContext.Provider>
+      </ReplyIdContext.Provider>
       </CommentIdContext.Provider>
     </>
   );
