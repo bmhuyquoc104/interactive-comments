@@ -136,7 +136,7 @@ const Comment = ({
   const { commentID,setCommentID } = useContext(CommentIdContext);
   const { replyID, setReplyID } = useContext(ReplyIdContext);
   const { type, setType } = useContext(TypeContext);
-
+  console.log(score);
   return (
     <>
       {/* render only a comment without any replies */}
@@ -221,7 +221,7 @@ const Comment = ({
                     <img src={imagesResource.iconReply} alt="A reply icon" />
                     {/* open the reply box when click */}
                     <button
-                      onClick={() => setReplyingComment(!isReplyingComment)}
+                      onClick={() => {setReplyingComment(!isReplyingComment); setType("replyComment"); setCommentID(id)}}
                     >
                       Reply
                     </button>
@@ -239,6 +239,10 @@ const Comment = ({
             <CurrentUserComment
               png={currentUser.image.png}
               buttonRole="reply"
+              type = {type}
+              commentid = {id}
+              currentUser = {currentUser}
+
             />
           )}
         </>
@@ -287,7 +291,7 @@ const Comment = ({
                 currentUser.username !== reply.user.username ? (
                   <div key={reply.id}>
                     <StyledComment>
-                      <RenderButton score={score} />
+                      <RenderButton score={reply.score} />
 
                       <div className="comment-body">
                         <div className="comment-user">
@@ -329,6 +333,7 @@ const Comment = ({
                       <CurrentUserComment
                         png={currentUser.image.png}
                         buttonRole="reply"
+                        type = {type}
                         replyId={replyID}
                       />
                     )}
@@ -337,7 +342,7 @@ const Comment = ({
                   // render a reply from current user -> change the layout
                   <div key={reply.id}>
                     <StyledComment>
-                      <RenderButton score={score} />
+                      <RenderButton score={reply.score} />
 
                       <div className="comment-body">
                         <div className="comment-user">
@@ -412,6 +417,9 @@ const Comment = ({
             <CurrentUserComment
               png={currentUser.image.png}
               buttonRole="reply"
+              currentUser = {currentUser}
+              commentid = {id}
+              type = {type}
             />
           )}
           {/* the box for current user to add new comment */}
