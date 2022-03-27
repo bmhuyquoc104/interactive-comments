@@ -102,7 +102,7 @@ export const content = {
             image: {
               png: `${imagesResource.imageJiuliusomo}`,
             },
-            username: "juliusomo",
+            username: "lalala",
           },
         },
       ],

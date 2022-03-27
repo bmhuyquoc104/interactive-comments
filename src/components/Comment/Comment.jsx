@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useContext } from "react";
+import React, { useState, useReducer, useContext,useRef } from "react";
 import { StyledComment, StyledReply } from "./Comment.styled";
 import CurrentUserComment from "./CurrentUserComment/CurrentUserComment";
 import imagesResource from "../../assets/images";
@@ -129,9 +129,10 @@ const Comment = ({
   currentUser,
   id,
 }) => {
-  const [isReplyingComment, setReplyingComment] = useState(false);
+  const [isReplyingComment, setReplyingComment] = useState();
   const [isUpdating, setUpdating] = useState(false);
-  const [isReplyingAReply, setReplyingAReply] = useState(false);
+  const [isUpdatingAReply, setUpdatingAReply] = useState({isOpen:false,id:0});
+  const [isReplyingAReply, setReplyingAReply] = useState({isOpen: false,id:0});
   const { commentID, setCommentID } = useContext(CommentIdContext);
   const { replyID, setReplyID } = useContext(ReplyIdContext);
   const { type, setType } = useContext(TypeContext);
@@ -317,12 +318,13 @@ const Comment = ({
                               alt="A reply icon"
                             />
                             {/* open a reply box for each reply in a comment */}
-                            <button
+                            <button 
                               onClick={() => {
-                                setReplyingAReply(!isReplyingAReply);
+                                setReplyingAReply({isOpen:!isReplyingAReply.isOpen,id:reply.id});
                                 setType("replyComment");
                                 setReplyingTo(reply.user.username);
                                 setCommentID(id);
+                                
                               }}
                             >
                               Reply
@@ -337,7 +339,7 @@ const Comment = ({
                       </div>
                     </StyledComment>
                     {/* render a reply box when the reply button is clicked */}
-                    {isReplyingAReply && (
+                    {(isReplyingAReply.isOpen && isReplyingAReply.id === reply.id)  && (
                       <CurrentUserComment
                         png={currentUser.image.png}
                         buttonRole="reply"
@@ -392,7 +394,7 @@ const Comment = ({
                               {/* a button to open the update box */}
                               <button
                                 onClick={() => {
-                                  setUpdating(!isUpdating);
+                                  setUpdatingAReply({isOpen:!isUpdatingAReply.isOpen,id:reply.id});
                                   setReplyID(reply.id);
                                   setType("updateReply");
                                 }}
@@ -411,7 +413,7 @@ const Comment = ({
                       </div>
                     </StyledComment>
                     {/* open the update box for update the comment from current user */}
-                    {isUpdating && (
+                    {(isUpdatingAReply.isOpen && isUpdatingAReply.id === reply.id) && (
                       <CurrentUserComment
                         png={currentUser.image.png}
                         buttonRole="update"
