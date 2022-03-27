@@ -68,3 +68,71 @@ setComment(comments.filter(comment => comment.id !=== id));
 setReply(comments.map((comment) => ({...comment,replies:comment.reply.filter((reply) => reply.id !== replyId),)}));
 ``` 
 - Set the type props to check whether the delete function is used for comment or reply
+
+## 5. Update function
+- Use `map` method for this task. Map each comment or reply that have the same id to update using the `spread operator`
+
+```js
+const updateReply = {};
+setComments(comments.map((comment) => ({
+            ...comment,
+            replies: comment.replies.map((reply) =>
+              reply.id !== replyId
+                ? { ...reply }
+                : {
+                    ...reply,
+                    ...data,
+                    createdAt: format(new Date(), "dd-MM--yyyy"),
+                  }
+            ),
+          })))
+```
+
+```js
+const updateComment = {};
+setComments(comments.map((comment) =>
+            comment.id === commentid
+              ? {
+                  ...comment,
+                  ...data,
+                  createAt: format(new Date(), "dd-MM--yyyy"),
+                }
+              : { ...comment }
+          ))
+```
+
+## 6. Add reply
+- Similar to add comments, but need to `map` the correct comment to add the new reply by `concat` method
+  
+```js
+const newReply = {};
+setComments(
+          comments.map((comment) =>
+            comment.id === commentid
+              ? { ...comment, replies: comment.replies.concat({ ...newReply }) }
+              : { ...comment }
+          )
+        );
+```
+
+## 7. Toggle child component
+- To prevent toggle all children in the component when using normal `useState` to toggle, add the default object {isOpen:true,id:0} to the useState
+- In the tenary render, using the condition to check both the toggle isOpen and its `id` match the `chosenId`
+  
+```js
+const [isUpdatingAReply,setUpdatingAReply] = useState({isOpen:false,id:0});
+
+<button
+onClick={() => {
+setUpdatingAReply({isOpen:!isUpdatingAReply.isOpen,id:reply.id});
+/>
+
+{(isUpdatingAReply.isOpen && isUpdatingAReply.id === reply.id) && (
+<CurrentUserComment
+png={currentUser.image.png}
+buttonRole="update"
+replyId={replyID}
+type={type}
+/>
+)}
+```
