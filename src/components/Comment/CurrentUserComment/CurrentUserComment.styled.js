@@ -40,6 +40,11 @@ export const StyledCurrentUserComment = styled.div`
 
   }
 
+  textarea::placeholder{
+      color: var(--clr_mblue);
+      font-weight: 500;
+  }
+
   button {
     flex:1;
     border-radius: 10px;

@@ -189,7 +189,7 @@ button{
 
 export const StyledReply = styled.div`
 display: flex;
-
+width: 100%;
 
 .decoration-container{
     display: flex;

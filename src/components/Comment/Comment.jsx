@@ -132,10 +132,10 @@ const Comment = ({
   const [isReplyingComment, setReplyingComment] = useState(false);
   const [isUpdating, setUpdating] = useState(false);
   const [isReplyingAReply, setReplyingAReply] = useState(false);
-  const { comments } = useContext(CommentContext);
-  const { commentID,setCommentID } = useContext(CommentIdContext);
+  const { commentID, setCommentID } = useContext(CommentIdContext);
   const { replyID, setReplyID } = useContext(ReplyIdContext);
   const { type, setType } = useContext(TypeContext);
+  const [replyingTo, setReplyingTo] = useState();
   console.log(score);
   return (
     <>
@@ -221,7 +221,12 @@ const Comment = ({
                     <img src={imagesResource.iconReply} alt="A reply icon" />
                     {/* open the reply box when click */}
                     <button
-                      onClick={() => {setReplyingComment(!isReplyingComment); setType("replyComment"); setCommentID(id)}}
+                      onClick={() => {
+                        setReplyingComment(!isReplyingComment);
+                        setType("replyComment");
+                        setCommentID(id);
+                        setReplyingTo(username);
+                      }}
                     >
                       Reply
                     </button>
@@ -239,10 +244,10 @@ const Comment = ({
             <CurrentUserComment
               png={currentUser.image.png}
               buttonRole="reply"
-              type = {type}
-              commentid = {id}
-              currentUser = {currentUser}
-
+              type={type}
+              replyingTo = {replyingTo}
+              commentid={id}
+              currentUser={currentUser}
             />
           )}
         </>
@@ -268,8 +273,9 @@ const Comment = ({
                   <button
                     onClick={() => {
                       setReplyingComment(!isReplyingComment);
-                      setType('replyComment')
+                      setType("replyComment");
                       setCommentID(id);
+                      setReplyingTo(username);
                     }}
                   >
                     Reply
@@ -314,7 +320,9 @@ const Comment = ({
                             <button
                               onClick={() => {
                                 setReplyingAReply(!isReplyingAReply);
-                                setType('replyReply')
+                                setType("replyComment");
+                                setReplyingTo(reply.user.username);
+                                setCommentID(id);
                               }}
                             >
                               Reply
@@ -333,8 +341,11 @@ const Comment = ({
                       <CurrentUserComment
                         png={currentUser.image.png}
                         buttonRole="reply"
-                        type = {type}
+                        type={type}
+                        replyingTo = {replyingTo}
+                        currentUser={currentUser}
                         replyId={replyID}
+                        commentid={commentID}
                       />
                     )}
                   </div>
@@ -367,6 +378,7 @@ const Comment = ({
                                 onClick={() => {
                                   toggleModal(true);
                                   setType("deleteReply");
+                                  setReplyID(reply.id);
                                 }}
                               >
                                 Delete
@@ -417,9 +429,10 @@ const Comment = ({
             <CurrentUserComment
               png={currentUser.image.png}
               buttonRole="reply"
-              currentUser = {currentUser}
-              commentid = {id}
-              type = {type}
+              currentUser={currentUser}
+              commentid={id}
+              replyingTo ={replyingTo}
+              type={type}
             />
           )}
           {/* the box for current user to add new comment */}

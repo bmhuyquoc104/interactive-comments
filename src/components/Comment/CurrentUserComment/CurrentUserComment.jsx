@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext,useState } from "react";
 import { StyledCurrentUserComment } from "./CurrentUserComment.styled";
 import { CommentContext, TypeContext } from "../../../hooks/useContext";
 import * as yup from "yup";
@@ -11,11 +11,12 @@ const CurrentUserComment = ({
   png,
   buttonRole,
   currentUser,
+  replyingTo,
   replyId,
   commentid,
   type,
 }) => {
-  console.log(currentUser);
+
   const { comments, setComments } = useContext(CommentContext);
   const schema = yup.object().shape({
     content: yup.string().required("Please enter your comment"),
@@ -34,12 +35,8 @@ const CurrentUserComment = ({
   });
 
   console.log(commentid);
-  console.log(comments);
 
-  // const {user:{username}} = user
 
-  // console.log(username);
-  console.log(replyId);
   const onSubmit = (data) => {
     switch (type) {
       case "updateComment":
@@ -74,7 +71,9 @@ const CurrentUserComment = ({
       case "replyComment":
         reset();
         const [user] = comments.filter((comment) => comment.id === commentid);
-        const { user:{username} } = user;
+        const {
+          user: { username },
+        } = user;
         console.log(currentUser);
         const replyToday = format(new Date(), "MM-dd-yyyy");
         let replyCreatedAt = replyToday;
@@ -82,9 +81,9 @@ const CurrentUserComment = ({
         let newReply = {
           id: `${newReplyId}`,
           ...data,
-          createdAt:`${replyCreatedAt}`,
-          score:0,
-          replyingTo:`${username}`,
+          createdAt: `${replyCreatedAt}`,
+          score: 0,
+          replyingTo: `${replyingTo}`,
           user: currentUser,
         };
         return setComments(
@@ -114,23 +113,46 @@ const CurrentUserComment = ({
     }
   };
   return (
-    <StyledCurrentUserComment>
-      <div className="avatar">
-        <img src={png} alt="A user avatar" />
-      </div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <textarea
-          cols="4 0"
-          rows="3"
-          type="textarea"
-          placeholder="Add a comment..."
-          {...register("content")}
-        />
-        <p className="error">{errors.content?.message}</p>
+    <>
+      {buttonRole === "reply" ? (
+        <StyledCurrentUserComment>
+          <div className="avatar">
+            <img src={png} alt="A user avatar" />
+          </div>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <textarea
+              cols="4 0"
+              rows="3"
+              type="textarea" 
+              placeholder={`@${replyingTo}`}
+              {...register("content")}
+            />
+            
+            <p className="error">{errors.content?.message}</p>
 
-        <button>{buttonRole}</button>
-      </form>
-    </StyledCurrentUserComment>
+            <button>{buttonRole}</button>
+          </form>
+        </StyledCurrentUserComment>
+      ) : (
+        <StyledCurrentUserComment>
+          <div className="avatar">
+            <img src={png} alt="A user avatar" />
+          </div>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <textarea
+              cols="4 0"
+              rows="3"
+              type="textarea"
+              placeholder="Add a comment..."
+              {...register("content")}
+            />
+            <p className="error">{errors.content?.message}</p>
+
+            <button>{buttonRole}</button>
+          </form>
+        </StyledCurrentUserComment>
+      )}
+    </>
   );
 };
 
