@@ -11,7 +11,7 @@ const CurrentUserComment = ({
   buttonRole,
   currentUser,
   replyId,
-  commentID,
+  commentid,
   type,
 }) => {
   const { comments, setComments } = useContext(CommentContext);
@@ -42,7 +42,7 @@ const CurrentUserComment = ({
     //     return setComments(
     //       comments.map(
     //         (comment) =>
-    //           comment.id === commentID && {
+    //           comment.id === commentid && {
     //             ...comment,
     //             content: data,
     //             createAt: format(new Date(), "dd-MM--yyyy"),
@@ -50,32 +50,31 @@ const CurrentUserComment = ({
     //       )
     //     );
     //   case "updateReply":
-    console.log("Here");
-    console.log(typeof(data));
-    return setComments(
-      comments.map((comment) => ({
-        ...comment,
-        replies: comment.replies.map((reply) =>
-          reply.id !== replyId ? { ...reply } : { ...reply, ...data,createdAt:"2 tieng truoc" }
-        ),
-      })),
-    );
-    //   default:
-    //     let id = nextId("comment-");
-    //     let score = 0;
-    //     let replies = [];
-    //     const today = format(new Date(), "MM-dd-yyyy");
-    //     let createdAt = today;
-    //     const newComment = {
-    //       id,
-    //       ...data,
-    //       createdAt,
-    //       score,
-    //       user: currentUser,
-    //       replies,
-    //     };
-    //     setComments([...comments, newComment]);
-    //     reset();
+    
+    // return setComments(
+    //   comments.map((comment) => ({
+    //     ...comment,
+    //     replies: comment.replies.map((reply) =>
+    //       reply.id !== replyId ? { ...reply } : { ...reply, ...data,createdAt:"2 tieng truoc" }
+    //     ),
+    //   })),
+    // );
+      // default:
+        let id = "21321";
+        let score = 0;
+        let replies = [];
+        const today = format(new Date(), "MM-dd-yyyy");
+        let createdAt = today;
+        const newComment = {
+          id,
+          ...data,
+          createdAt,
+          score,
+          user: currentUser,
+          replies,
+        };
+        setComments([...comments, newComment]);
+        reset();
     // }
   };
   return (
