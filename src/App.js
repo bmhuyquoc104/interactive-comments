@@ -30,16 +30,6 @@ function App() {
   // Use to remove the localstorage
   localStorage.removeItem('comments');
 
-  // Initialize the empty arr to push all the replies to this arr
-  let replyComment = [];
-  comments.forEach(comment => {
-    let eachReply = comment.replies;
-    replyComment.push(eachReply);
-    
-  })
-
-  const [reply,setReply] = useState((replyComment[1]));
-
 
   // use state hook to toggle the modal
   const [isToggle, setToggle] = useState(false);
@@ -48,9 +38,9 @@ function App() {
       {/* Add the global style on top  */}
       <StyledGlobal />
       {/* Wrap the children by useContext.provider and pass the value */}
+      <ReplyIdContext.Provider value={{replyID,setReplyID}}>
       <TypeContext.Provider value = {{setType}}>
       <CommentIdContext.Provider value={{setCommentID}}>
-        <ReplyIdContext.Provider value={{setReplyID}}>
       <CommentContext.Provider value = {{comments,setComments}}>
       <StyledFlexContainer>
             {comments.map((comment) => (
@@ -65,9 +55,9 @@ function App() {
       {/* Show the modal whether it is toggle or not */}
       {isToggle && <Modal type = {type} replyId = {replyID} id ={commentID} toggleModal = {setToggle}/>}
       </CommentContext.Provider>
-      </ReplyIdContext.Provider>
       </CommentIdContext.Provider>
       </TypeContext.Provider>
+      </ReplyIdContext.Provider>
     </>
   );
 }

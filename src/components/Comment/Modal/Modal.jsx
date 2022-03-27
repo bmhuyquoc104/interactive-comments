@@ -11,7 +11,6 @@ const Modal = ({ toggleModal, id, replyId, type }) => {
   const deleteFunction = () => {
     // Close modal after delete function completed
     toggleModal(false);
-
     // Use the type to determine whether the comment or a reply should be deleted
     switch (type) {
       case "deleteReply": 

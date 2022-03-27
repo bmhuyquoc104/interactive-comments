@@ -2,7 +2,12 @@ import React, { useState, useReducer, useContext } from "react";
 import { StyledComment, StyledReply } from "./Comment.styled";
 import CurrentUserComment from "./CurrentUserComment/CurrentUserComment";
 import imagesResource from "../../assets/images";
-import { CommentIdContext, ReplyIdContext, TypeContext } from "../../hooks/useContext";
+import {
+  CommentContext,
+  CommentIdContext,
+  ReplyIdContext,
+  TypeContext,
+} from "../../hooks/useContext";
 // Function to render a button and do a upvote and downvote function for that button
 // Using the current score as the props from Comment component
 const RenderButton = ({ score }) => {
@@ -126,12 +131,17 @@ const Comment = ({
   const [isReplyingComment, setReplyingComment] = useState(false);
   const [isUpdating, setUpdating] = useState(false);
   const [isReplyingAReply, setReplyingAReply] = useState(false);
+  const {comments} = useContext(CommentContext);
+  const { setCommentID } = useContext(CommentIdContext);
+  const { replyID,setReplyID } = useContext(ReplyIdContext);
+  const { type, setType } = useContext(TypeContext);
+   
+  const List = () => {
+    return(
+    comments.map(comment => comment.replies.map(reply =>(<li>{reply.id}</li>))))
+  }
+  
 
-
-  console.log(id);
-  const {setCommentID} = useContext(CommentIdContext);
-  const {setReplyID} = useContext(ReplyIdContext);
-  const {setType} = useContext(TypeContext);
   return (
     <>
       {/* render only a comment without any replies */}
@@ -139,80 +149,85 @@ const Comment = ({
         <>
           {/* render all the comments */}
           {currentUser.username === username ? (
-            <StyledComment >
-            <RenderButton score={score} />
+            <StyledComment>
+              <RenderButton score={score} />
 
-            <div className="comment-body">
-              <div className="comment-user">
-                <div className="left-side">
-                  <div className="avatar">
-                    <img
-                      src={png}
-                      alt="An user avatar"
-                    />
+              <div className="comment-body">
+                <div className="comment-user">
+                  <div className="left-side">
+                    <div className="avatar">
+                      <img src={png} alt="An user avatar" />
+                    </div>
+                    <h2>{username}</h2>
+                    <h3 className="comment-owner">you</h3>
+                    <h3>{createdAt}</h3>
                   </div>
-                  <h2>{username}</h2>
-                  <h3 className="comment-owner">you</h3>
-                  <h3>{createdAt}</h3>
+                  <div className="reply-right-side">
+                    <div className="delete-button">
+                      <img
+                        src={imagesResource.iconDelete}
+                        alt="A delete icon"
+                      />
+                      <button
+                        onClick={() => {
+                          toggleModal(true);
+                          setCommentID(id);
+                          setType("deleteComment");
+                        }}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                    <div className="edit-button">
+                      <img src={imagesResource.iconEdit} alt="A edit icon" />
+                      {/* a button to open the update box */}
+                      <button
+                        commentID={id}
+                        onClick={() => {
+                          setCommentID(id);
+                          setUpdating(!isUpdating);
+                          setType("updateComment");
+                        }}
+                      >
+                        Edit
+                      </button>
+                    </div>
+                  </div>
                 </div>
-                <div className="reply-right-side">
-                  <div className="delete-button">
-                    <img
-                      src={imagesResource.iconDelete}
-                      alt="A delete icon"
-                    />
-                    <button onClick={() => {toggleModal(true);setCommentID(id); setType("deleteComment")}}>
-                      Delete
+                <div className="content">
+                  <p> {content}</p>
+                </div>
+              </div>
+            </StyledComment>
+          ) : (
+            <StyledComment>
+              <RenderButton score={score} />
+              <div className="comment-body">
+                <div className="comment-user">
+                  <div className="left-side">
+                    <div className="avatar">
+                      <img src={png} alt="An user avatar" />
+                    </div>
+                    <h2>{username}</h2>
+                    <h3>{createdAt}</h3>
+                  </div>
+                  <div className="right-side">
+                    <img src={imagesResource.iconReply} alt="A reply icon" />
+                    {/* open the reply box when click */}
+                    <button
+                      onClick={() => setReplyingComment(!isReplyingComment)}
+                    >
+                      Reply
                     </button>
                   </div>
-                  <div className="edit-button">
-                    <img
-                      src={imagesResource.iconEdit}
-                      alt="A edit icon"
-                    />
-                    {/* a button to open the update box */}
-                    <button onClick={() => setUpdating(!isUpdating)}>
-                      Edit
-                    </button>
-                  </div>
+                </div>
+                <div className="content">
+                  <p>{content}</p>
                 </div>
               </div>
-              <div className="content">
-                <p>
-                  {" "}
-                 {content}
-                </p>
-              </div>
-            </div>
-          </StyledComment>
-          ) : ( <StyledComment>
-            <RenderButton score={score} />
-            <div className="comment-body">
-              <div className="comment-user">
-                <div className="left-side">
-                  <div className="avatar">
-                    <img src={png} alt="An user avatar" />
-                  </div>
-                  <h2>{username}</h2>
-                  <h3>{createdAt}</h3>
-                </div>
-                <div className="right-side">
-                  <img src={imagesResource.iconReply} alt="A reply icon" />
-                  {/* open the reply box when click */}
-                  <button 
-                    onClick={() => setReplyingComment(!isReplyingComment)}
-                  >
-                    Reply
-                  </button>
-                </div>
-              </div>
-              <div className="content">
-                <p>{content}</p>
-              </div>
-            </div>
-          </StyledComment>
+            </StyledComment>
           )}
-         
+
           {/* only open the reply box when reply is clicked */}
           {isReplyingComment && (
             <CurrentUserComment
@@ -262,8 +277,8 @@ const Comment = ({
             <div className="replies">
               {replies.map((reply) =>
                 currentUser.username !== reply.user.username ? (
-                  < >
-                    <StyledComment key={reply.id}>
+                  <div key = {reply.id}>
+                    <StyledComment>
                       <RenderButton score={score} />
 
                       <div className="comment-body">
@@ -285,8 +300,9 @@ const Comment = ({
                             />
                             {/* open a reply box for each reply in a comment */}
                             <button
-                              onClick={() =>{
+                              onClick={() => {
                                 setReplyingAReply(!isReplyingAReply);
+                                
                               }}
                             >
                               Reply
@@ -305,13 +321,14 @@ const Comment = ({
                       <CurrentUserComment
                         png={currentUser.image.png}
                         buttonRole="reply"
-                      />
+                        replyId={replyID}
+                        />
                     )}
-                  </>
+                  </div>
                 ) : (
                   // render a reply from current user -> change the layout
-                  < >
-                    <StyledComment key={reply.id}>
+                  <div key = {reply.id}>
+                    <StyledComment>
                       <RenderButton score={score} />
 
                       <div className="comment-body">
@@ -333,7 +350,12 @@ const Comment = ({
                                 src={imagesResource.iconDelete}
                                 alt="A delete icon"
                               />
-                              <button onClick={() => {toggleModal(true);setReplyID(reply.id); setType("deleteReply")}}>
+                              <button
+                                onClick={() => {
+                                  toggleModal(true);
+                                  setType("deleteReply");
+                                }}
+                              >
                                 Delete
                               </button>
                             </div>
@@ -343,7 +365,13 @@ const Comment = ({
                                 alt="A edit icon"
                               />
                               {/* a button to open the update box */}
-                              <button onClick={() => setUpdating(!isUpdating)}>
+                              <button
+                                onClick={() => {
+                                  setUpdating(!isUpdating);
+                                  setReplyID(reply.id);
+
+                                }}
+                              >
                                 Edit
                               </button>
                             </div>
@@ -362,9 +390,11 @@ const Comment = ({
                       <CurrentUserComment
                         png={currentUser.image.png}
                         buttonRole="update"
+                        replyId={replyID}
+                        type={type}
                       />
                     )}
-                  </>
+                  </div>
                 )
               )}
             </div>
@@ -379,7 +409,6 @@ const Comment = ({
           {/* the box for current user to add new comment */}
         </>
       )}
-      
     </>
   );
 };
