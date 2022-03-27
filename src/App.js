@@ -39,8 +39,8 @@ function App() {
       <StyledGlobal />
       {/* Wrap the children by useContext.provider and pass the value */}
       <ReplyIdContext.Provider value={{replyID,setReplyID}}>
-      <TypeContext.Provider value = {{setType}}>
-      <CommentIdContext.Provider value={{setCommentID}}>
+      <TypeContext.Provider value = {{type,setType}}>
+      <CommentIdContext.Provider value={{setCommentID,commentID}}>
       <CommentContext.Provider value = {{comments,setComments}}>
       <StyledFlexContainer>
             {comments.map((comment) => (

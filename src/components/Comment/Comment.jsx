@@ -133,7 +133,7 @@ const Comment = ({
   const [isUpdating, setUpdating] = useState(false);
   const [isReplyingAReply, setReplyingAReply] = useState(false);
   const { comments } = useContext(CommentContext);
-  const { setCommentID } = useContext(CommentIdContext);
+  const { commentID,setCommentID } = useContext(CommentIdContext);
   const { replyID, setReplyID } = useContext(ReplyIdContext);
   const { type, setType } = useContext(TypeContext);
 
@@ -200,7 +200,7 @@ const Comment = ({
                 <CurrentUserComment
                   png={currentUser.image.png}
                   buttonRole="update"
-                  replyId={replyID}
+                  commentid={commentID}
                   type={type}
                 />
               )}
@@ -264,6 +264,8 @@ const Comment = ({
                   <button
                     onClick={() => {
                       setReplyingComment(!isReplyingComment);
+                      setType('replyComment')
+                      setCommentID(id);
                     }}
                   >
                     Reply
@@ -308,6 +310,7 @@ const Comment = ({
                             <button
                               onClick={() => {
                                 setReplyingAReply(!isReplyingAReply);
+                                setType('replyReply')
                               }}
                             >
                               Reply
@@ -374,6 +377,7 @@ const Comment = ({
                                 onClick={() => {
                                   setUpdating(!isUpdating);
                                   setReplyID(reply.id);
+                                  setType("updateReply");
                                 }}
                               >
                                 Edit

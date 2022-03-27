@@ -14,6 +14,7 @@ const CurrentUserComment = ({
   commentid,
   type,
 }) => {
+  console.log(type);
   const { comments, setComments } = useContext(CommentContext);
   const schema = yup.object().shape({
     content: yup.string().required("Please enter your comment"),
@@ -31,35 +32,37 @@ const CurrentUserComment = ({
     },
   });
 
+  console.log(commentid);
   console.log(comments);
 
   console.log(replyId);
   const onSubmit = (data) => {
-    // switch (type) {
-    //   case "updateComment":
-    //     console.log("Here");
-    //     reset();
-    //     return setComments(
-    //       comments.map(
-    //         (comment) =>
-    //           comment.id === commentid && {
-    //             ...comment,
-    //             content: data,
-    //             createAt: format(new Date(), "dd-MM--yyyy"),
-    //           }
-    //       )
-    //     );
-    //   case "updateReply":
-    
-    // return setComments(
-    //   comments.map((comment) => ({
-    //     ...comment,
-    //     replies: comment.replies.map((reply) =>
-    //       reply.id !== replyId ? { ...reply } : { ...reply, ...data,createdAt:"2 tieng truoc" }
-    //     ),
-    //   })),
-    // );
-      // default:
+    switch (type) {
+      case "updateComment":
+        console.log("Here");
+        reset();
+        return setComments(
+          comments.map(
+            (comment) =>
+              comment.id === commentid ? ({
+                ...comment,
+                ...data,
+                createAt: format(new Date(), "dd-MM--yyyy"),
+              }) : ({...comment}) 
+          )
+        );
+      case "updateReply":
+        return setComments(
+          comments.map((comment) => ({
+            ...comment,
+            replies: comment.replies.map((reply) =>
+              reply.id !== replyId
+                ? { ...reply }
+                : { ...reply, ...data, createdAt: "2 tieng truoc" }
+            ),
+          }))
+        );
+      default:
         let id = "21321";
         let score = 0;
         let replies = [];
@@ -75,7 +78,7 @@ const CurrentUserComment = ({
         };
         setComments([...comments, newComment]);
         reset();
-    // }
+    }
   };
   return (
     <StyledCurrentUserComment>
