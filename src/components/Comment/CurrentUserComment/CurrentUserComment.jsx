@@ -16,10 +16,15 @@ const CurrentUserComment = ({
   type,
 }) => {
 
+  // Use useContext to get the comment state and setComment function
   const { comments, setComments } = useContext(CommentContext);
+
+  // Set the schema for the content
   const schema = yup.object().shape({
     content: yup.string().required("Please enter your comment"),
   });
+
+  // Import all objects and function in useForm library
   const {
     register,
     handleSubmit,
@@ -33,10 +38,15 @@ const CurrentUserComment = ({
     },
   });
 
+  // Function when handleSubmit
   const onSubmit = (data) => {
+    // Depend on the type pass from comment to determine which function should be called
     switch (type) {
+      // update comment
       case "updateComment":
+        //reset after submit form
         reset();
+        // find the comment that being chosen and update it by using spread function
         return setComments(
           comments.map((comment) =>
             comment.id === commentid
@@ -48,9 +58,11 @@ const CurrentUserComment = ({
               : { ...comment }
           )
         );
+        //update reply
       case "updateReply":
         reset();
         return setComments(
+          // find the correct reply that is being chosen and update it by spread function
           comments.map((comment) => ({
             ...comment,
             replies: comment.replies.map((reply) =>
@@ -64,8 +76,10 @@ const CurrentUserComment = ({
             ),
           }))
         );
+        // update reply comment
       case "replyComment":
         reset();
+        // Initialize new reply comment
         const replyToday = format(new Date(), "MM-dd-yyyy");
         let replyCreatedAt = replyToday;
         let newReplyId = nextId("reply-");
@@ -77,6 +91,7 @@ const CurrentUserComment = ({
           replyingTo: `${replyingTo}`,
           user: currentUser,
         };
+        // use concat to add new reply to the replies array
         return setComments(
           comments.map((comment) =>
             comment.id === commentid
@@ -84,6 +99,7 @@ const CurrentUserComment = ({
               : { ...comment }
           )
         );
+        // when no type props pass -> call add new function
       default:
         let id = nextId("comment-");
         let score = 0;
@@ -104,11 +120,13 @@ const CurrentUserComment = ({
   };
   return (
     <>
+      {/* render by the buttonRole */}
       {buttonRole === "reply" ? (
         <StyledCurrentUserComment>
           <div className="avatar">
             <img src={png} alt="A user avatar" />
           </div>
+          {/* handling form submit */}
           <form onSubmit={handleSubmit(onSubmit)}>
             <textarea
               cols="4 0"
@@ -124,6 +142,7 @@ const CurrentUserComment = ({
           </form>
         </StyledCurrentUserComment>
       ) : (
+
         <StyledCurrentUserComment>
           <div className="avatar">
             <img src={png} alt="A user avatar" />

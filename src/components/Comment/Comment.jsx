@@ -128,13 +128,20 @@ const Comment = ({
   currentUser,
   id,
 }) => {
+  //Use use state to manage the modal state for reply, update a comment
   const [isReplyingComment, setReplyingComment] = useState();
   const [isUpdating, setUpdating] = useState(false);
+
+  //Use use state to manage the modal state for reply, update a reply, add default id to prevent open all the modals when toggle one child
   const [isUpdatingAReply, setUpdatingAReply] = useState({isOpen:false,id:0});
   const [isReplyingAReply, setReplyingAReply] = useState({isOpen: false,id:0});
+
+  // Call useContext value to use and set the value
   const { commentID, setCommentID } = useContext(CommentIdContext);
   const { replyID, setReplyID } = useContext(ReplyIdContext);
   const { type, setType } = useContext(TypeContext);
+
+  // Use use state to set and pass the replying to another component
   const [replyingTo, setReplyingTo] = useState();
   return (
     <>
@@ -145,6 +152,7 @@ const Comment = ({
           {currentUser.username === username ? (
             <StyledFlexContainer>
               <StyledComment>
+                {/* Render a button with functionality */}
                 <RenderButton score={score} />
 
                 <div className="comment-body">
@@ -175,7 +183,7 @@ const Comment = ({
                       </div>
                       <div className="edit-button">
                         <img src={imagesResource.iconEdit} alt="A edit icon" />
-                        {/* a button to open the update box */}
+                        {/* a button to open the update box and set value for several states */}
                         <button
                           commentID={id}
                           onClick={() => {
@@ -424,7 +432,7 @@ const Comment = ({
               )}
             </div>
           </StyledReply>
-          {/* open the reply box for the comment that has reply */}
+          {/* open the reply box for the comment that has reply plus pass the props to component */}
           {isReplyingComment && (
             <CurrentUserComment
               png={currentUser.image.png}

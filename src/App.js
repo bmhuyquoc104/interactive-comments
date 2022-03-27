@@ -16,9 +16,11 @@ function App() {
     return localData ? JSON.parse(localData) : content.comments;
   });
 
+  // Use state hook to store the type
   const [type,setType] = useState();
+  
+  // Use state hook store the comment, and reply
   const [commentID,setCommentID] = useState();
-
   const [replyID,setReplyID] = useState();
 
   // Use useEffect hook to save the comments to localStorage and only re render when the comments arr change
