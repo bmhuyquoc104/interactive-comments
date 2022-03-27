@@ -28,7 +28,7 @@ function App() {
   },[comments])
 
   // Use to remove the localstorage
-  localStorage.removeItem('comments');
+  // localStorage.removeItem('comments');
 
 
   // use state hook to toggle the modal

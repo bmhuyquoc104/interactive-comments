@@ -1,10 +1,9 @@
-import React, { useState, useReducer, useContext,useRef } from "react";
+import React, { useState, useReducer, useContext } from "react";
 import { StyledComment, StyledReply } from "./Comment.styled";
 import CurrentUserComment from "./CurrentUserComment/CurrentUserComment";
 import imagesResource from "../../assets/images";
 import { StyledFlexContainer } from "../Flex/Flex.styled";
 import {
-  CommentContext,
   CommentIdContext,
   ReplyIdContext,
   TypeContext,
@@ -137,7 +136,6 @@ const Comment = ({
   const { replyID, setReplyID } = useContext(ReplyIdContext);
   const { type, setType } = useContext(TypeContext);
   const [replyingTo, setReplyingTo] = useState();
-  console.log(score);
   return (
     <>
       {/* render only a comment without any replies */}

@@ -1,12 +1,11 @@
-import React, { useContext,useState } from "react";
+import React, { useContext } from "react";
 import { StyledCurrentUserComment } from "./CurrentUserComment.styled";
-import { CommentContext, TypeContext } from "../../../hooks/useContext";
+import { CommentContext } from "../../../hooks/useContext";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import nextId from "react-id-generator";
 import { format } from "date-fns";
-import imagesResource from "../../../assets/images";
 const CurrentUserComment = ({
   png,
   buttonRole,
@@ -33,9 +32,6 @@ const CurrentUserComment = ({
       content: "",
     },
   });
-
-  console.log(commentid);
-
 
   const onSubmit = (data) => {
     switch (type) {
@@ -70,11 +66,6 @@ const CurrentUserComment = ({
         );
       case "replyComment":
         reset();
-        const [user] = comments.filter((comment) => comment.id === commentid);
-        const {
-          user: { username },
-        } = user;
-        console.log(currentUser);
         const replyToday = format(new Date(), "MM-dd-yyyy");
         let replyCreatedAt = replyToday;
         let newReplyId = nextId("reply-");
@@ -93,7 +84,6 @@ const CurrentUserComment = ({
               : { ...comment }
           )
         );
-      case "replyReply":
       default:
         let id = nextId("comment-");
         let score = 0;

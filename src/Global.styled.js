@@ -30,6 +30,7 @@ export const StyledGlobal = createGlobalStyle`
 
     #root{
         width:max(45%,650px);
+        padding:4em 0;
     }
 
     @media (max-width:720px){
