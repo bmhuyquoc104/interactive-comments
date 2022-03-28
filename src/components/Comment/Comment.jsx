@@ -150,7 +150,7 @@ const Comment = ({
         <>
           {/* render all the comments */}
           {currentUser.username === username ? (
-            <StyledFlexContainer>
+            <StyledFlexContainer >
               <StyledComment>
                 {/* Render a button with functionality */}
                 <RenderButton score={score} />
@@ -203,6 +203,7 @@ const Comment = ({
                 </div>
                 {/* open the update box for update the comment from current user */}
               </StyledComment>
+              <div>
               {isUpdating && (
                 <CurrentUserComment
                   png={currentUser.image.png}
@@ -211,6 +212,7 @@ const Comment = ({
                   type={type}
                 />
               )}
+              </div>
             </StyledFlexContainer>
           ) : (
             <StyledComment>
@@ -299,10 +301,10 @@ const Comment = ({
             <div className="decoration-container">
               <div className="decoration"></div>
             </div>
-            <div className="replies">
+            <div className="replies" >
               {replies.map((reply) =>
                 currentUser.username !== reply.user.username ? (
-                  <div key={reply.id}>
+                  <div  key={reply.id}>
                     <StyledComment>
                       <RenderButton score={reply.score} />
 

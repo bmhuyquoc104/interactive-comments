@@ -7,6 +7,9 @@ export const StyledFlexContainer = styled.div`
   width: 100%;
   align-items: center;
   gap: 1em;
+  & > *{
+    width: 100%;
+  }
 `;
 export const StyledAbsoluteContainer = styled.div`
   display: flex;

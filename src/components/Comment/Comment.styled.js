@@ -76,6 +76,7 @@ svg{
 }
 
 
+
 .comment-owner{
     padding:0.2em 0.4em;
     background-color:var(--clr_mblue);
@@ -200,6 +201,12 @@ width: 100%;
     display: flex;
     flex-direction: column;
     flex:1;
+    gap:1em;
+}
+
+.replies>:first-child,.replies>:nth-child(2){
+    display: flex;
+    flex-direction: column;
     gap:1em;
 }
 
