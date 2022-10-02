@@ -13,7 +13,7 @@ export const StyledFlexContainer = styled.div`
 `;
 export const StyledAbsoluteContainer = styled.div`
   display: flex;
-  position: absolute;
+  position: fixed;
   top: 0;
   width: 100%;
   left: 0;
@@ -21,5 +21,5 @@ export const StyledAbsoluteContainer = styled.div`
   align-items:center;
   z-index:1;
   background-color:rgba(211,211,211,0.6);
-  min-height:100vh;
+  height:100%;
 `;
