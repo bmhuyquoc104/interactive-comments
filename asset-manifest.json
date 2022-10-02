@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.js": "/react-interactive-comments/static/js/main.343706a1.js",
+    "main.js": "/react-interactive-comments/static/js/main.9f23f822.js",
     "index.html": "/react-interactive-comments/index.html",
     "static/media/icon-plus-active.svg": "/react-interactive-comments/static/media/icon-plus-active.2f5bff14a1de73fc0d40a8d8163d8684.svg",
     "static/media/icon-plus.svg": "/react-interactive-comments/static/media/icon-plus.31053e6687a2a740c04aa52eb75c3110.svg",
@@ -9,9 +9,9 @@
     "static/media/icon-reply.svg": "/react-interactive-comments/static/media/icon-reply.bfb4589d45cd96abd45e3b82f7e7bbc6.svg",
     "static/media/icon-minus.svg": "/react-interactive-comments/static/media/icon-minus.4aa6933cb1575b3c54fa67d84a61efaf.svg",
     "static/media/icon-delete.svg": "/react-interactive-comments/static/media/icon-delete.86cedbf2e37529f9c8f1f744254059b0.svg",
-    "main.343706a1.js.map": "/react-interactive-comments/static/js/main.343706a1.js.map"
+    "main.9f23f822.js.map": "/react-interactive-comments/static/js/main.9f23f822.js.map"
   },
   "entrypoints": [
-    "static/js/main.343706a1.js"
+    "static/js/main.9f23f822.js"
   ]
 }
