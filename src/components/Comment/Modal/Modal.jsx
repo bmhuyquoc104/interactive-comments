@@ -4,7 +4,6 @@ import { StyledAbsoluteContainer } from "../../Flex/Flex.styled";
 import { CommentContext } from "../../../hooks/useContext";
 
 const Modal = ({ toggleModal, id, replyId, type }) => {
-  console.log(replyId);
   const { comments, setComments } = useContext(CommentContext);
 
   // Function to delete a comment or a reply by current user 
