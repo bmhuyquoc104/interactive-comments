@@ -27,15 +27,15 @@ A simple website to display the simple interact between users. This website allo
 <div style="display:flex;flex-direction:row;flex-wrap: wrap; gap:4em">
   <div>
     <p>Desktop website</p>
-    <img style = "object-fit:cover" src = "https://i.imgur.com/0gi0EOZ.png" width="400" height="400"/>
+    <img style = "object-fit:cover" src = "https://i.imgur.com/0gi0EOZ.png" width="800" height="400"/>
   </div>
   <div>
     <p>Delete modal</p>
-    <img style = "object-fit:cover" src = "https://i.imgur.com/tQh6geC.png" width="400" height="400"/>
+    <img style = "object-fit:cover" src = "https://i.imgur.com/tQh6geC.png" width="800" height="400"/>
   </div>
   <div>
     <p>Mobile websiet</p>
-    <img style = "object-fit:cover" src = "https://i.imgur.com/oPCTMQs.png" width="400" height="400"/>
+    <img style = "object-fit:cover" src = "https://i.imgur.com/oPCTMQs.png" width="500" height="400"/>
   </div>
 </div>
 
