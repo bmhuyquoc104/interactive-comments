@@ -1,6 +1,6 @@
 <div align="center">
 
-<h1 align="center">Sneaker Website</h1>
+<h1 align="center">Interactive Comment Website</h1>
 <h3 align="center">
 
   [ViewDemo](https://bmhuyquoc104.github.io/react-interactive-comments/)
